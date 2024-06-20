@@ -1,0 +1,10 @@
+.validaCampo{
+    border-color: red;
+    border-width: 1px;
+    border-style: solid;
+}
+.sizeTextAlet{
+    font-size: 12px;
+    color: red;
+    font-style: oblique;
+}
