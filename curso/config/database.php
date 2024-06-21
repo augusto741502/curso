@@ -4,7 +4,7 @@
 		
 		public static function conexion(){
 			
-			$conexion = new mysqli("localhost", "root", "root", "mvc");
+			$conexion = new mysqli("localhost", "root", "root", "curso");
 			return $conexion;
 			
 		}
