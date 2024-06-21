@@ -61,12 +61,12 @@ const detalleCurso = (id)=>{
 
             html +=' <div class="form-group">';
             html +='	<label for="placa">Titulo</label>';
-            html +='	<input type="text" class="form-control" id="titulo" name="titulo" value="'+obj.data.titulo+'" />';
+            html +='	<input type="text" class="form-control" id="titulo" name="titulo" value="'+obj.data.titulo+'" disabled/>';
             html +='</div>';
             
             html +='<div class="form-group">';
             html +='	<label for="marca">Descripciòn</label>';
-            html +='	<textarea maxlength="50" class="form-control" id="descripcion" name="descripcion">'+obj.data.descripcion+'</textarea>';
+            html +='	<textarea maxlength="50" class="form-control" id="descripcion" name="descripcion" disabled>'+obj.data.descripcion+'</textarea>';
             html +='</div>';
             let estado = 'ACTIVO';
             if(obj.data.estado==0){
@@ -75,7 +75,7 @@ const detalleCurso = (id)=>{
             
             html +='<div class="form-group">';
             html +='	<label for="modelo">Estado</label>';
-            html +='	<input type="text" class="form-control" id="estado" name="estado" value="'+estado+'" />';
+            html +='	<input type="text" class="form-control" id="estado" name="estado" value="'+estado+'" disabled/>';
             html +='</div>';
 
             $("#detalle").html(html);

@@ -45,10 +45,10 @@
 							echo "<td><a onclick='detalleCurso(".$dato["id_curso"].")' data-toggle='modal' data-target='#exampleModal' class='btn btn-success'>Detalle</a></td>";
 							if($dato["id_usuario"] == $data["id"]) { 
 								$tipo = 1;
-								echo "<td><a onclick='modificarCurso(".$dato["id_curso"].",".$tipo.")' data-toggle='modal' data-target='#exampleModal' class='btn btn-warning'>Modificar</a></td>";
+								echo "<td><a onclick='modificarCurso(".$dato["id_curso"].",".$tipo.")' data-toggle='modal' data-target='#exampleModal' class='btn btn-warning'>Editar</a></td>";
 							} else{
 								$tipo = 0;
-								echo "<td><a onclick='modificarCurso(".$dato["id_curso"].",".$tipo.")' class='btn btn-warning'>Modificar</a></td>";
+								echo "<td><a onclick='modificarCurso(".$dato["id_curso"].",".$tipo.")' class='btn btn-warning'>Editar</a></td>";
 							}
 
 							
