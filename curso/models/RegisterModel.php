@@ -4,12 +4,19 @@
 		
 		private $db;
 		private $login;
-		
+		/**
+		 * Metodo contructor que carga la conexion
+		 * @returns 
+		 * 21/05/2024
+		 */
 		public function __construct(){
 			$this->db = Conectar::conexion();
-			$this->usuarios = array();
 		}
-
+		/**
+		 * Metodo que valida si el mail existe he inserta datos del usuario
+		 * @returns 
+		 * 21/05/2024
+		 */
 		public function insertar($nombre, $email, $clave){
 
 			$emailRegistrado = $this->get_usuario($email);
@@ -22,6 +29,11 @@
 			return $resultado;
 		}
 
+		/**
+		 * Metodo que devuelve datos del usuario
+		 * @returns 
+		 * 21/05/2024
+		 */
 		public function get_usuario($email)
 		{
 			$sql = "SELECT * FROM usuarios WHERE email='$email'";

@@ -2,6 +2,11 @@
 $(function () {
 
 });
+/**
+ * Funcion que realiza registro usuario
+ * @returns 
+ * 21/05/2024
+ */
 
 const registroUsuario = ()=>{
 
@@ -40,7 +45,11 @@ const registroUsuario = ()=>{
 
 }
 
-
+/**
+ * Funcion que muestra modal con formulario para detalle curso
+ * @returns 
+ * 21/05/2024
+ */
 const detalleCurso = (id)=>{
     let html ='';
     $.ajax({
@@ -57,12 +66,16 @@ const detalleCurso = (id)=>{
             
             html +='<div class="form-group">';
             html +='	<label for="marca">Descripciòn</label>';
-            html +='	<input type="text" class="form-control" id="descripcion" name="descripcion" value="'+obj.data.descripcion+'" />';
+            html +='	<textarea maxlength="50" class="form-control" id="descripcion" name="descripcion">'+obj.data.descripcion+'</textarea>';
             html +='</div>';
+            let estado = 'ACTIVO';
+            if(obj.data.estado==0){
+                estado = 'INACTIVO';
+            }
             
             html +='<div class="form-group">';
             html +='	<label for="modelo">Estado</label>';
-            html +='	<input type="text" class="form-control" id="estado" name="estado" value="'+obj.data.estado+'" />';
+            html +='	<input type="text" class="form-control" id="estado" name="estado" value="'+estado+'" />';
             html +='</div>';
 
             $("#detalle").html(html);
@@ -72,6 +85,11 @@ const detalleCurso = (id)=>{
     });
 }
 
+/**
+ * Funcion que muestra modal con formulario para modificar curso
+ * @returns 
+ * 21/05/2024
+ */
 const modificarCurso = (id, tipo)=>{
 
     if(tipo>0){
@@ -95,15 +113,26 @@ const modificarCurso = (id, tipo)=>{
                 
                 html +='<div class="form-group">';
                 html +='	<label for="marca">Descripciòn</label>';
-                html +='	<input type="text" class="form-control" id="descripcion" name="descripcion" value="'+obj.data.descripcion+'" />';
+                html +='	<textarea maxlength="50" class="form-control" id="descripcion" name="descripcion">'+obj.data.descripcion+'</textarea>';
                 html +='</div>';
-                
+
+
+              
                 html +='<div class="form-group">';
                 html +='	<label for="modelo">Estado</label>';
-                html +='	<input type="text" class="form-control" id="estado" name="estado" value="'+obj.data.estado+'" />';
+                //html +='	<input type="text" class="form-control" id="estado" name="estado" value="'+obj.data.estado+'" />';
+              
+                    html +='<select class="form-control" id="estado" name="estado">';
+                    html +='<option value="">Seleccione Estado</option>';
+                    html +='<option value="1">ACTIVO</option>';
+                    html +='<option value="0">INACTIVO</option>';
+                    html +='</select>';
+                
                 html +='</div>';
 
                 $("#detalle").html(html);
+
+                $("#estado option[value=" + obj.data.estado + "]").attr("selected", true);
                 $("#btn_modifica").show();
                 $("#btn_guarda").hide();
                 
@@ -115,7 +144,11 @@ const modificarCurso = (id, tipo)=>{
     }
 }
 
-
+/**
+ * Funcion que realiza actualiza detalle del curso
+ * @returns 
+ * 21/05/2024
+ */
 const actualizarCurso = ()=>{
     $.ajax({
         url: 'index.php?c=cursos&a=actualizar',
@@ -136,6 +169,11 @@ const actualizarCurso = ()=>{
     });
 }
 
+/**
+ * Funcion que realiza elimina curso
+ * @returns 
+ * 21/05/2024
+ */
 const eliminarCurso = (id, tipo)=>{
 
     if(tipo>0){
@@ -160,27 +198,35 @@ const eliminarCurso = (id, tipo)=>{
     }
 }
 
-
+/**
+ * Funcion que muestra modal con formulario para guarda curso
+ * @returns 
+ * 21/05/2024
+ */
 const guardarCurso = (id)=>{
 
         //$("#detalle").html('')
         let html ='';
-        
+        html +='<form name="registro" id="registro">';
         html +=' <div class="form-group">';
-        html +='	<label for="placa">Titulo</label>';
+        html +='	<label for="placa">Titulo<span id="titulo_r"></span></label>';
         html +='	<input type="text" class="form-control" id="titulo" name="titulo" value="" />';
         html +='</div>';
         
         html +='<div class="form-group">';
-        html +='	<label for="marca">Descripciòn</label>';
-        html +='	<input type="text" class="form-control" id="descripcion" name="descripcion" value="" />';
+        html +='	<label for="marca">Descripciòn<span id="descripcion_r"></span></label>';
+        html +='	<textarea maxlength="50" class="form-control" id="descripcion" name="descripcion"></textarea>';
         html +='</div>';
         
         html +='<div class="form-group">';
-        html +='	<label for="modelo">Estado</label>';
-        html +='	<input type="text" class="form-control" id="estado" name="estado" value="" />';
+        html +='	<label for="modelo">Estado<span id="estado_r"></span></label>';
+        html +='<select class="form-control" id="estado" name="estado">';
+        html +='<option value="">Seleccione Estado</option>';
+        html +='<option value="1">ACTIVO</option>';
+        html +='<option value="0">INACTIVO</option>';
+        html +='</select>';
         html +='</div>';
-
+        html +='</form>';
         $("#detalle").html(html);
         $("#btn_modifica").hide();
         $("#btn_guarda").show();
@@ -188,8 +234,25 @@ const guardarCurso = (id)=>{
 }
 
 
-
+/**
+ * Funcion que guarda curso
+ * @returns 
+ * 21/05/2024
+ */
 const guardaCurso = ()=>{
+    let campos = $( "#registro" ).serializeArray();
+    let flag = 0;
+    campos.forEach(campo => {
+        if(campo.value ==''){
+            $("#"+campo.name+"_r").text('Campo obligatorio').addClass("sizeTextAlet")
+            flag++;
+        }else{
+            $("#"+campo.name+"_r").text('')
+        }
+    });
+    if(flag>0){
+        return;
+    }
     $.ajax({
         url: 'index.php?c=cursos&a=guarda',
         datatype: 'json',

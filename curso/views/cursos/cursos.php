@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title><?php echo $data["titulo"]; ?></title>
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-		
+		<link rel="stylesheet" href="assets/css/style.css">
 	</head>
 	
 	<body>
@@ -36,7 +36,12 @@
 							echo "<tr>";
 							echo "<td>".$dato["titulo"]."</td>";
 							echo "<td>".$dato["descripcion"]."</td>";
-							echo "<td>".$dato["estado"]."</td>";
+
+							$estado = "ACTIVO";
+							if($dato["estado"]==0){
+								$estado = "INACTIVO";
+							}
+							echo "<td>".$estado."</td>";
 							echo "<td><a onclick='detalleCurso(".$dato["id_curso"].")' data-toggle='modal' data-target='#exampleModal' class='btn btn-success'>Detalle</a></td>";
 							if($dato["id_usuario"] == $data["id"]) { 
 								$tipo = 1;
